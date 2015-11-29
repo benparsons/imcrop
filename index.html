@@ -1,0 +1,19 @@
+<html>
+<body>
+  <canvas width="400px" height="400px" id="image"></canvas>
+</body>
+<script>
+  var canvasImage = document.getElementById('image');
+  canvasImage.style.height = window.innerHeight - 20;
+  canvasImage.style.width = window.innerWidth - 20;
+  var ctxImage = canvasImage.getContext('2d');
+  var base_image = new Image();
+  base_image.src = "dragon.jpg";
+
+  base_image.onload = function () {
+    ctxImage.scale(0.1,0.1);
+    ctxImage.drawImage(base_image, 0, 0);
+    console.log(base_image.height);
+  }
+</script>
+</html>

@@ -1,19 +1,48 @@
 <html>
 <body>
-  <canvas width="400px" height="400px" id="image"></canvas>
+  <canvas width="2000px" height="1500px" id="image"></canvas>
 </body>
 <script>
-  var canvasImage = document.getElementById('image');
-  canvasImage.style.height = window.innerHeight - 20;
-  canvasImage.style.width = window.innerWidth - 20;
-  var ctxImage = canvasImage.getContext('2d');
-  var base_image = new Image();
-  base_image.src = "dragon.jpg";
 
-  base_image.onload = function () {
-    ctxImage.scale(0.1,0.1);
-    ctxImage.drawImage(base_image, 0, 0);
-    console.log(base_image.height);
+
+
+  var canvasImage = document.getElementById('image');
+  //canvasImage.style.height = window.innerHeight - 20;
+  //canvasImage.style.width = window.innerWidth - 20;
+  var ctxImage = canvasImage.getContext('2d');
+  var imageObj = new Image();
+  imageObj.src = "dragon.jpg";
+
+  imageObj.onload = function () {
+    drawImageScaled(imageObj, ctxImage);
+  }
+  var ratio;
+
+  function drawImageScaled(img, ctx) {
+   var canvas = ctx.canvas ;
+   var hRatio = canvas.clientWidth  / img.width    ;
+   var vRatio =  canvas.clientHeight / img.height  ;
+   ratio  = Math.min ( hRatio, vRatio );
+   ctx.drawImage(img, 0,0, img.width, img.height, 0,0,img.width*ratio, img.height*ratio);
+
+  }
+
+  canvasImage.onmousemove = function(event) {
+    ctxImage.globalAlpha = 1;
+    drawImageScaled(imageObj, ctxImage);
+    var x = Math.floor(event.offsetX / ratio);
+    var y = Math.floor(event.offsetY / ratio);
+    ctxImage.globalAlpha=0.4;
+    //ctxImage.fillRect(x*ratio,0,(x+200)*ratio,imageObj.height);
+    ctxImage.fillRect(0,0,x*ratio,imageObj.height);
+    var newWidth = 1080 * imageObj.height / 1920;
+    ctxImage.fillRect((x+newWidth)*ratio,0,imageObj.width,imageObj.height);
+  }
+
+  canvasImage.onclick = function(event) {
+    console.log(event.offsetX);
+    console.log(Math.floor(event.offsetX / ratio));
+
   }
 </script>
 </html>

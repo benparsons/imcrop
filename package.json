@@ -1,0 +1,24 @@
+{
+  "name": "imcrop",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benparsons/imcrop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benparsons/imcrop/issues"
+  },
+  "homepage": "https://github.com/benparsons/imcrop#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "url": "^0.11.0"
+  },
+  "devDependencies": {},
+  "description": ""
+}

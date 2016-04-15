@@ -2,6 +2,7 @@ var url = require('url');
 var express = require('express');
 var app = express();
 
+var http = require('https');
 
 var dburl = 'flickrphotos';
 var collections = ['photos'];
@@ -13,6 +14,12 @@ var upload = require('./upload.js');
 
 app.get('/list-empty-flickr-ids', function(req, res) {
   flickr.findEmptyIds(db, function(result) {
+    res.send(result);
+  });
+});
+
+app.get('/load-flickr-ids', function(req, res) {
+  flickr.loadFlickrIds(http, db, function(result) {
     res.send(result);
   });
 });

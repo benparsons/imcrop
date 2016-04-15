@@ -10,7 +10,6 @@ var db = mongojs(dburl, collections);
 var exec = require('child_process').exec;
 
 var http = require('https');
-var API_KEY = "9e3fad4371ea21684576fa076388262b";
 
 app.get('/insert/output', function (req, res) {
   exec('node -v', function(error, stdout, stderr) {
@@ -27,41 +26,6 @@ app.get('/insert/output', function (req, res) {
 
     //db.frames.insert(JSON.parse(result));
     res.send(result);
-});
-
-app.get('/load-flickr-ids', function(req, res) {
-  var output;
-  var photoSearchURL = "https://api.flickr.com/services/rest/?" +
-        "method=flickr.photos.search&" +
-        "api_key=" + API_KEY + "&" +
-        "tags=calm&" +
-        "license=4&" +
-        "format=json&" +
-        "nojsoncallback=1";
-
-  http.get(photoSearchURL, function(res){
-      var body = '';
-
-      res.on('data', function(chunk){
-          body += chunk;
-      });
-
-      res.on('end', function(){
-          var flickrResponse = JSON.parse(body);
-          console.log("Got a response: ", flickrResponse.photos.photo[0]);
-          var mapped = flickrResponse.photos.photo.map(function(photo) {
-            return {
-              id: photo.id
-            };
-          });
-          db.photos.insert(mapped);
-          //output = getPhotoInfo(flickrResponse.photos.photo[0]);
-      });
-  }).on('error', function(e){
-        console.log("Got an error: ", e);
-  });
-
-  res.send("output");
 });
 
 var getPhotoInfo = function(photo) {

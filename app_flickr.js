@@ -29,12 +29,6 @@ app.get('/insert/output', function (req, res) {
     res.send(result);
 });
 
-app.get('/list-empty-flickr-ids', function(req, res) {
-  db.photos.find({title: null}, function(err, result) {
-		res.send(result);
-	});
-});
-
 app.get('/load-flickr-ids', function(req, res) {
   var output;
   var photoSearchURL = "https://api.flickr.com/services/rest/?" +

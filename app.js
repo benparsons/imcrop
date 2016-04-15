@@ -12,6 +12,12 @@ var db = mongojs(dburl, collections);
 var flickr = require('./flickr.js');
 var upload = require('./upload.js');
 
+app.get('/get-random-empty-id', function(req, res) {
+  flickr.findRandomEmptyId(db, function(result) {
+    res.send(result);
+  });
+});
+
 app.get('/list-empty-flickr-ids', function(req, res) {
   flickr.findEmptyIds(db, function(result) {
     res.send(result);

@@ -9,6 +9,10 @@ var collections = ['photos'];
 var mongojs = require('mongojs');
 var db = mongojs(dburl, collections);
 
+var AWS = require('aws-sdk');
+AWS.config.region = 'us-east-1';
+
+
 var flickr = require('./flickr.js');
 var upload = require('./upload.js');
 
@@ -49,6 +53,24 @@ app.post('/upload/local', function(req, res){
     res.send(result);
   })
 });
+
+app.get('/aws-test', function(req, res) {
+  console.log("part1");
+  var s3bucket = new AWS.S3({params: {Bucket: 'flickrwall'}});
+    console.log("part2");
+  s3bucket.createBucket(function() {
+    console.log("part3");
+    var params = {Key: 'myKey', Body: 'Hello!'};
+    s3bucket.upload(params, function(err, data) {
+      if (err) {
+        console.log("Error uploading data: ", err);
+      } else {
+        console.log("Successfully uploaded data to flickrwall/myKey");
+      }
+    });
+  });
+});
+
 
 app.get('/', function (req, res) {
     res.sendfile('index.html');

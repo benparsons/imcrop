@@ -35,13 +35,46 @@
               };
             });
             db.photos.insert(mapped);
-            
+
             callback({sucess: true, count: mapped.length});
         });
     }).on('error', function(e){
       callback({success: false, err: e});
     });
   };
+
+  flickr.prototype.getPhotoInfo = function(http, photo_id, callback) {
+    var result = {};
+
+    var photoGetInfoURL = "https://api.flickr.com/services/rest/?" +
+      "method=flickr.photos.getInfo&" +
+      "api_key=" + API_KEY + "&" +
+      "photo_id=" + photo_id + "&" +
+      "format=json&" +
+      "nojsoncallback=1";
+
+      http.get(photoGetInfoURL, function(res){
+          var body = '';
+
+          res.on('data', function(chunk){
+              body += chunk;
+          });
+
+          res.on('end', function(){
+              var flickrResponse = JSON.parse(body).photo;
+              console.log("Got a response: ", flickrResponse);
+              result.original_url = "http://farm" + flickrResponse.farm +
+                ".staticflickr.com/" + flickrResponse.server + "/" +
+                flickrResponse.id + "_" + flickrResponse.originalsecret +
+                "_o." + flickrResponse.originalformat;
+              result.flickrResponse = flickrResponse;
+              callback({sucess: true, result: result});
+          });
+      }).on('error', function(e){
+        callback({success: false, err: e});
+      });
+      //https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{o-secret}_o.(jpg|gif|png)
+  }
 
   module.exports = new flickr();
 }());

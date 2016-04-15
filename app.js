@@ -22,6 +22,12 @@ app.get('/load-flickr-ids', function(req, res) {
   flickr.loadFlickrIds(http, db, function(result) {
     res.send(result);
   });
+})
+
+app.get('/get-photo-info', function(req, res){
+  flickr.getPhotoInfo(http, "26409172255", function(result){
+    res.send(result);
+  });
 });
 
 app.post('/upload/local', function(req, res){

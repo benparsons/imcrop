@@ -7,26 +7,7 @@ var collections = ['photos'];
 var mongojs = require('mongojs');
 var db = mongojs(dburl, collections);
 
-var exec = require('child_process').exec;
-
 var http = require('https');
-
-app.get('/insert/output', function (req, res) {
-  exec('node -v', function(error, stdout, stderr) {
-      console.log('stdout: ' + stdout);
-      console.log('stderr: ' + stderr);
-      if (error !== null) {
-          console.log('exec error: ' + error);
-      }
-  });
-
-    var url_parts = url.parse(req.url, true);
-    var query = url_parts.query;
-    var result = query['name'];
-
-    //db.frames.insert(JSON.parse(result));
-    res.send(result);
-});
 
 var getPhotoInfo = function(photo) {
   var result = {};

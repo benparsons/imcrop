@@ -33,7 +33,7 @@
       var formData = new FormData();
       formData.append('croppedImage', blob);
 
-      $.ajax('/path/to/upload', {
+      $.ajax('/upload/local', {
         method: "POST",
         data: formData,
         processData: false,

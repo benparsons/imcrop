@@ -27,8 +27,8 @@
     $('#btnSave').click(function() {
 
       //console.log($('#image').cropper('getCroppedCanvas').toDataURL('image/jpeg'));
-      $('#image').cropper('setAspectRatio', (2/1))
-      var blob = $('#image').cropper('getCroppedCanvas', {width:200, height:100}).toDataURL('image/jpeg');
+      //$('#image').cropper('setAspectRatio', (2/1))
+      var blob = $('#image').cropper('getCroppedCanvas', {width:1080, height:1920}).toDataURL('image/jpeg');
       console.log(blob);
       var formData = new FormData();
       formData.append('croppedImage', blob);

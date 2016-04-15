@@ -54,12 +54,21 @@ app.post('/upload/local', function(req, res){
   })
 });
 
+app.post('/upload/s3', function(req, res) {
+  upload.s3(req, AWS, function(err) {
+    var result = {
+      success: !err
+    };
+    if (err) result.err = err;
+
+    res.send(result);
+  })
+
+});
+
 app.get('/aws-test', function(req, res) {
-  console.log("part1");
   var s3bucket = new AWS.S3({params: {Bucket: 'flickrwall'}});
-    console.log("part2");
   s3bucket.createBucket(function() {
-    console.log("part3");
     var params = {Key: 'myKey', Body: 'Hello!'};
     s3bucket.upload(params, function(err, data) {
       if (err) {

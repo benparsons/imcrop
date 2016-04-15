@@ -1,0 +1,79 @@
+<html>
+<head>
+  <script src="js/jquery.min.js"></script><!-- jQuery is required -->
+  <link  href="css/cropper.min.css" rel="stylesheet">
+  <script src="js/cropper.min.js"></script>
+  <style>
+  img {
+    max-width: 100%;
+  }
+  </style>
+  <script>
+  function initCropper() {
+    $('#image').cropper({
+      aspectRatio: 9 / 16,
+      crop: function(e) {
+        // Output the result data for cropping image.
+        console.log(e.x);
+        console.log(e.y);
+        console.log(e.width);
+        console.log(e.height);
+        console.log(e.rotate);
+        console.log(e.scaleX);
+        console.log(e.scaleY);
+      }
+    });
+  }
+
+  $(document).ready(function(){
+    $.get('/get-random-empty-id')
+      .done(function(data) {
+        console.log(data.id);
+        $.get('/get-photo-info?id=' + data.id)
+          .done(function(data) {
+            console.log(data.result.original_url);
+            $('#image').attr("src", data.result.original_url);
+
+            initCropper();
+          });
+      }
+    );
+
+
+
+    $('#btnSave').click(function() {
+
+      //console.log($('#image').cropper('getCroppedCanvas').toDataURL('image/jpeg'));
+      //$('#image').cropper('setAspectRatio', (2/1))
+      var blob = $('#image').cropper('getCroppedCanvas', {width:1080, height:1920}).toDataURL('image/jpeg');
+      console.log(blob);
+      var formData = new FormData();
+      formData.append('croppedImage', blob);
+
+      $.ajax('/upload/local', {
+        method: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function () {
+          console.log('Upload success');
+        },
+        error: function () {
+          console.log('Upload error');
+        }
+      });
+
+    });
+  });
+
+  </script>
+</head>
+<body>
+  <div>
+    <img id="image" />
+  </div>
+  <div>
+    <button id="btnSave">SAVE</button>
+  </div>
+</body>
+</html>

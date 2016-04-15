@@ -12,7 +12,7 @@
   flickr.prototype.findRandomEmptyId = function(db, callback) {
     var skipRandom = Math.floor(Math.random() * 10);
     db.photos.find({title:null}).limit(-1).skip(skipRandom, function(err, result) {
-      callback(result);
+      callback(result[0]);
     });
   };
 

@@ -31,7 +31,10 @@ app.get('/load-flickr-ids', function(req, res) {
 })
 
 app.get('/get-photo-info', function(req, res){
-  flickr.getPhotoInfo(http, "26409172255", function(result){
+  var url_parts = url.parse(req.url, true);
+  var query = url_parts.query;
+
+  flickr.getPhotoInfo(http, query.id, function(result){
     res.send(result);
   });
 });

@@ -38,9 +38,12 @@
       var imageBuffer = decodeBase64Image(fields.croppedImage[0]);
 
       var s3bucket = new AWS.S3({params: {Bucket: 'flickrwall'}});
-      s3bucket.upload({Body: imageBuffer.data, Key: 'akey'}).
+      s3bucket.upload({Body: imageBuffer.data, Key: require('node-uuid').v4() + '.jpg'}).
         on('httpUploadProgress', function(evt) { console.log(evt); }).
-        send(function(err, data) { console.log(err, data) });
+        send(function(err, data) {
+          console.log(err, data);
+          callback(err, data);
+        });
 
 
     });

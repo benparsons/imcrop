@@ -3,8 +3,17 @@ var express = require('express');
 var app = express();
 
 var http = require('https');
+var dburl;
+if (process.env.MLABUSER && process.env.MLABPASSWORD) {
+  dburl = process.env.MLABUSER + ':' + process.env.MLABPASSWORD +
+  'ds011271.mlab.com:11271/' + process.env.MLABUSER;
+}
+else {
+  dburl = 'flickrphotos';
+}
 
-var dburl = 'flickrphotos';
+console.log('dburl: ' + dburl);
+
 var collections = ['photos'];
 var mongojs = require('mongojs');
 var db = mongojs(dburl, collections);

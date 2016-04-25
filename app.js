@@ -6,7 +6,7 @@ var http = require('https');
 var dburl;
 if (process.env.MLABUSER && process.env.MLABPASSWORD) {
   dburl = process.env.MLABUSER + ':' + process.env.MLABPASSWORD +
-  'ds011271.mlab.com:11271/' + process.env.MLABUSER;
+  '@ds011271.mlab.com:11271/' + process.env.MLABUSER;
 }
 else {
   dburl = 'flickrphotos';

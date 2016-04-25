@@ -4,7 +4,7 @@ var app = express();
 
 var http = require('https');
 var dburl;
-if (process.env.MLABUSER && process.env.MLABPASSWORD && MLABDB) {
+if (process.env.MLABUSER && process.env.MLABPASSWORD && process.env.MLABDB) {
   dburl = process.env.MLABUSER + ':' + process.env.MLABPASSWORD +
   '@ds011271.mlab.com:11271/' + process.env.MLABDB;
 }

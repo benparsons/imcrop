@@ -108,6 +108,12 @@ app.get('/aws-test', function(req, res) {
   });
 });
 
+app.get('/client-api/get-full-image-list', function (req, res) {
+  datahandling.getFullImageList(db, function(err, result) {
+    res.send(result);
+  });
+});
+
 
 app.get('/', function (req, res) {
     res.sendfile('index.html');

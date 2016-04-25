@@ -25,6 +25,13 @@
         });
     };
 
+    datahandling.prototype.getFullImageList =
+      function(db, callback) {
+        db.photos.find({title: {$exists: true}}, function(err, result) {
+          callback(err, result);
+        });
+      };
+
 
   module.exports = new datahandling();
 }());

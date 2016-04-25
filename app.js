@@ -64,6 +64,15 @@ app.post('/upload/local', function(req, res){
   })
 });
 
+app.get('/remove-from-pool', function(req, res) {
+  var url_parts = url.parse(req.url, true);
+  var query = url_parts.query;
+
+  datahandling.disableSourceImage(db, query.id, function(err, result) {
+    res.send(result);
+  });
+});
+
 app.post('/upload/s3', function(req, res) {
   upload.s3(req, AWS, function(err, data) {
     var result = {
@@ -80,7 +89,7 @@ app.get('/upload/insert-data', function(req, res){
   var url_parts = url.parse(req.url, true);
   var query = url_parts.query;
 //console.log("raw:    " + JSON.parse(query.metadata));
-  datahandling.insertDataAfterImageSave(db, JSON.parse(query.metadata), function(result){
+  datahandling.insertDataAfterImageSave(db, JSON.parse(query.metadata), function(err, result){
     res.send(result);
   });
 });

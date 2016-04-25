@@ -96,8 +96,14 @@
         .done(function( data ) {
           alert( "Data Loaded: " + data );
         });
-
     }
+
+    $('#btnRemoveAndNext').click(function() {
+      $.get( "/remove-from-pool", { id: image_metadata.id } )
+        .done(function( data ) {
+          location.reload();
+        });
+    });
 
     $('#btnJustNext').click(function() {
       if(confirm("Do you really want to skip this without removing from pool?")) {

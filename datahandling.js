@@ -10,6 +10,21 @@
       });
   };
 
+  datahandling.prototype.disableSourceImage =
+    function(db, id, callback) {
+      db.photos.update(
+        {id: id.toString(), title:null}, // query
+        {
+          $set: { // fields to update
+            disabled: true
+          }
+        },
+        {multi: true}, // multiple documents updated
+        function(err, result) {
+          callback(err, result);
+        });
+    };
+
 
   module.exports = new datahandling();
 }());

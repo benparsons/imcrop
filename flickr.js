@@ -21,10 +21,11 @@
     var photoSearchURL = "https://api.flickr.com/services/rest/?" +
           "method=flickr.photos.search&" +
           "api_key=" + API_KEY + "&" +
-          "tags=calm&" +
-          "license=4&" +
+          "tags=calm,soft,placid,restful,smooth,peaceful,serene&" +
+          "license=4,5,7&" +
           "format=json&" +
-          "nojsoncallback=1";
+          "nojsoncallback=1&" +
+          "per_page=500";
 
     http.get(photoSearchURL, function(res){
         var body = '';

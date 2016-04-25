@@ -70,7 +70,7 @@
           res.on('end', function(){
               var flickrResponse = JSON.parse(body).photo;
               console.log("Got a response: ", flickrResponse);
-              result.original_url = "http://farm" + flickrResponse.farm +
+              result.original_url = "https://farm" + flickrResponse.farm +
                 ".staticflickr.com/" + flickrResponse.server + "/" +
                 flickrResponse.id + "_" + flickrResponse.originalsecret +
                 "_o." + flickrResponse.originalformat;

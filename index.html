@@ -6,12 +6,12 @@
     $.get('/client-api/get-full-image-list').done(function(data) {
       data.forEach(function (wallpaper) {
         $("#mainTable").append("<tr>" +
-        "<td>" + data.id + "</td>" +
-        "<td>" + data.ownerrealname + "</td>" +
-        "<td>" + data.ownerusername + "</td>" +
-        "<td>" + data.title + "</td>" +
-        "<td><a href='" + data.photo_page_url + "'>Flickr</a></td>" +
-        "<td><a href='https://s3-eu-west-1.amazonaws.com/flickrwall/" + data.filename + "'>Image File</a></td>" +
+        "<td>" + wallpaper.id + "</td>" +
+        "<td>" + wallpaper.ownerrealname + "</td>" +
+        "<td>" + wallpaper.ownerusername + "</td>" +
+        "<td>" + wallpaper.title + "</td>" +
+        "<td><a href='" + wallpaper.photo_page_url + "'>Flickr</a></td>" +
+        "<td><a href='https://s3-eu-west-1.amazonaws.com/flickrwall/" + wallpaper.filename + "'>Image File</a></td>" +
          "</tr>");
       });
       console.log(data);

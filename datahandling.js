@@ -28,6 +28,21 @@
     datahandling.prototype.getFullImageList =
       function(db, callback) {
         db.photos.find({title: {$exists: true}}, function(err, result) {
+          if (!err) {
+            result = result.map(function(wallpaperItem) {
+              return {
+
+                id: wallpaperItem.id,
+                ownerrealname: wallpaperItem.ownerrealname,
+                ownerusername: wallpaperItem.ownerusername,
+                title: wallpaperItem.title,
+                photo_page_url: wallpaperItem.photo_page_url,
+                filename: wallpaperItem.filename
+
+
+              };
+            })
+          }
           callback(err, result);
         });
       };
